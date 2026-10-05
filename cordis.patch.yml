@@ -11,7 +11,7 @@
 #   - no short-turn filter and no "user is active" gate, so a completion is
 #     always reported
 - insert:
-    - id: win-notify
+    - id: dsh-TaskCompletedNotification-plugin
       name: 'dsh-TaskCompletedNotification-plugin'
       config:
         enabled: true

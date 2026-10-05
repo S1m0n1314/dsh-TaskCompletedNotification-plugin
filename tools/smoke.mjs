@@ -1,5 +1,5 @@
 /**
- * Smoke test for dsh-win-notify, driven without Windows.
+ * Smoke test for dsh-TaskCompletedNotification-plugin, driven without Windows.
  *
  *   node tools/smoke.mjs
  *
@@ -29,7 +29,7 @@ import {
 } from '../lib/index.js';
 
 // Keep the diagnostic log out of the real profile.
-const scratch = mkdtempSync(join(tmpdir(), 'dsh-win-notify-smoke-'));
+const scratch = mkdtempSync(join(tmpdir(), 'dsh-TaskCompletedNotification-plugin-smoke-'));
 process.env.DSH_HOME = scratch;
 
 let passed = 0;
@@ -110,13 +110,34 @@ function turnEndEvent(turn, time, kind = 'completed') {
  */
 function mount(config, services) {
 	const ctx = makeCtx(services);
-	const runtime = apply(ctx, config);
+	// Seams: the smoke test must not touch the real machine (registry keys,
+	// staged handler files), so both registration steps are stubbed out.
+	const calls = { click: [], brand: [] };
+	const runtime = apply(ctx, config, {
+		ensureClickToFocus: (libDir, targetDir, protocol) => {
+			calls.click.push({ libDir, targetDir, protocol });
+			return { registered: true, libDir: targetDir, launcher: `${targetDir}\\focus-launcher.vbs` };
+		},
+		ensureBrand: (appId, icon, displayName, libDir) => {
+			calls.brand.push({ appId, displayName, libDir });
+			return { appId, icon, written: true, skipped: false };
+		}
+	});
 	const shown = [];
 	if (runtime !== undefined && runtime.notifier !== undefined) {
 		runtime.notifier.notify = (input) => shown.push(input);
 	}
-	return { ctx, runtime, shown };
+	return { ctx, runtime, shown, calls };
 }
+
+await test('mounting never writes to the real machine', () => {
+	const { calls } = mount({ enabled: true });
+	assert.equal(calls.click.length, 1, 'click registration goes through the injected seam');
+	assert.equal(calls.brand.length, 1, 'brand registration goes through the injected seam');
+	assert.equal(calls.click[0].protocol, 'dsh-TaskCompletedNotification-plugin');
+	assert.equal(calls.brand[0].appId, 'DeepSeek.Harness.Notify');
+	assert.equal(calls.brand[0].displayName, 'DeepSeek Harness');
+});
 
 /** Capture the toast markup the plugin wrote, without spawning anything. */
 function makeSpawnRecorder() {
@@ -218,7 +239,7 @@ await test('isSubagentSession recognizes spawned children', () => {
 
 await test('createNotifier writes correct toast markup and passes the idle gate', async () => {
 	const recorder = makeSpawnRecorder();
-	const spool = mkdtempSync(join(tmpdir(), 'dsh-win-notify-spool-'));
+	const spool = mkdtempSync(join(tmpdir(), 'dsh-TaskCompletedNotification-plugin-spool-'));
 	const notifier = createNotifier({ ...normalizeConfig(undefined), quietWhenActiveMs: 15000 }, {
 		spawn: recorder.spawnImpl,
 		logger: () => {},
@@ -237,11 +258,11 @@ await test('createNotifier writes correct toast markup and passes the idle gate'
 	assert.deepEqual(call.payload.title, '标题 <&>', 'markup survives XML escaping');
 	assert.equal(call.skipIfIdleBelowMs, 15000);
 	assert.equal(call.options.stdio, 'ignore');
-	assert.match(call.markupPath, /dsh-win-notify-spool/, 'markup lives in the plugin spool');
+	assert.match(call.markupPath, /dsh-TaskCompletedNotification-plugin-spool/, 'markup lives in the plugin spool');
 	assert.match(call.markup, /template="ToastText02"/);
 	assert.match(call.markup, /<text id="1">标题 &lt;&amp;&gt;<\/text>/, 'special characters are escaped');
 	assert.match(call.markup, /activationType="protocol"/, 'the toast is clickable by default');
-	assert.match(call.markup, /launch="dsh-win-notify:\/\/focus"/, 'and launches the focus handler');
+	assert.match(call.markup, /launch="dsh-TaskCompletedNotification-plugin:\/\/focus"/, 'and launches the focus handler');
 	assert.ok(!/CreateElement/.test(call.markup));
 	assert.match(call.resultPath, /\.result\.txt$/, 'a result file is requested for diagnosis');
 	rmSync(spool, { recursive: true, force: true });
@@ -249,7 +270,7 @@ await test('createNotifier writes correct toast markup and passes the idle gate'
 
 await test('focusOnClick=false ships a plain, non-activating toast', async () => {
 	const recorder = makeSpawnRecorder();
-	const spool = mkdtempSync(join(tmpdir(), 'dsh-win-notify-spool-'));
+	const spool = mkdtempSync(join(tmpdir(), 'dsh-TaskCompletedNotification-plugin-spool-'));
 	const notifier = createNotifier(normalizeConfig({ focusOnClick: false }), {
 		spawn: recorder.spawnImpl,
 		logger: () => {},
@@ -581,7 +602,7 @@ await test('the shipped notify.ps1 is ASCII-only and reads a UTF-8 payload', () 
 await test('the bundle patch inserts exactly one row for this package', () => {
 	const patch = readFileSync(new URL('../cordis.patch.yml', import.meta.url), 'utf8');
 	assert.match(patch, /insert:/);
-	assert.match(patch, /id: win-notify/);
+	assert.match(patch, /id: dsh-TaskCompletedNotification-plugin/);
 	// The row's plugin name must match the package name, or the loader cannot
 	// resolve the module after a rename.
 	const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -593,9 +614,9 @@ await test('the URL protocol is independent of the package name', () => {
 	// The scheme is a stable contract with the registry entry written at
 	// activation; renaming the package must not silently change it.
 	const launcher = readFileSync(new URL('../lib/focus-launcher.vbs', import.meta.url), 'utf8');
-	assert.match(launcher, /dsh-win-notify/);
+	assert.match(launcher, /dsh-TaskCompletedNotification-plugin/);
 	const source = readFileSync(new URL('../lib/index.js', import.meta.url), 'utf8');
-	assert.match(source, /ACTIVATION_PROTOCOL = 'dsh-win-notify'/);
+	assert.match(source, /ACTIVATION_PROTOCOL = 'dsh-TaskCompletedNotification-plugin'/);
 });
 
 rmSync(scratch, { recursive: true, force: true });

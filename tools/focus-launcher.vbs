@@ -1,7 +1,7 @@
-' dsh-win-notify launcher (no console window).
+' dsh-TaskCompletedNotification-plugin launcher (no console window).
 '
 ' Windows starts this through the HKCU protocol registration
-'   HKCU\Software\Classes\dsh-win-notify\shell\open\command
+'   HKCU\Software\Classes\dsh-TaskCompletedNotification-plugin\shell\open\command
 ' when the user clicks a notification banner. It resolves the plugin's own
 ' lib\focus-window.ps1 through the registered AppUserModelId key and runs it
 ' hidden, so clicking a toast raises the DeepSeek Harness window instead of

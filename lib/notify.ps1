@@ -1,6 +1,6 @@
-# dsh-win-notify
+# dsh-TaskCompletedNotification-plugin
 #
-# Windows toast notification helper for the dsh-win-notify Harness plugin.
+# Windows toast notification helper for the dsh-TaskCompletedNotification-plugin Harness plugin.
 #
 # Invocation:
 #   powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass `

@@ -60,7 +60,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 ```yaml
 - insert:
-    - id: win-notify
+    - id: dsh-TaskCompletedNotification-plugin
       name: 'dsh-TaskCompletedNotification-plugin'
 ```
 
@@ -76,7 +76,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 ### 配置
 
-改 profile 的 `cordis.patch.yml` 里 `win-notify` 那一行的 `config`，改完完全重启 DSH。
+改 profile 的 `cordis.patch.yml` 里 `dsh-TaskCompletedNotification-plugin` 那一行的 `config`，改完完全重启 DSH。
 未填字段用默认值。
 
 | 字段 | 默认 | 含义 |
@@ -96,7 +96,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 配置示例（关闭点击激活 + 只在离开电脑时提醒完成）：
 
 ```yaml
-- id: win-notify
+- id: dsh-TaskCompletedNotification-plugin
   name: 'dsh-TaskCompletedNotification-plugin'
   config:
     focusOnClick: false
@@ -114,9 +114,9 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 | 类别 | 具体内容 | 用途 |
 |---|---|---|
-| 用户目录写入 | `%USERPROFILE%\.dsh\win-notify\`（`log.ndjson`、`spool\`、`lib\`） | 诊断日志、通知暂存、点击处理器副本 |
+| 用户目录写入 | `%USERPROFILE%\.dsh\dsh-TaskCompletedNotification-plugin\`（`log.ndjson`、`spool\`、`lib\`） | 诊断日志、通知暂存、点击处理器副本 |
 | 用户级注册表（HKCU） | `HKCU\Software\Classes\AppUserModelId\DeepSeek.Harness.Notify` | 让通知署名显示为「DeepSeek Harness」+ 图标 |
-| 用户级注册表（HKCU） | `HKCU\Software\Classes\dsh-win-notify` | 注册 `dsh-win-notify://` 协议，实现「点击横幅拉起窗口」；**插件卸载时会自动删除** |
+| 用户级注册表（HKCU） | `HKCU\Software\Classes\dsh-TaskCompletedNotification-plugin` | 注册 `dsh-TaskCompletedNotification-plugin://` 协议，实现「点击横幅拉起窗口」；**插件卸载时会自动删除** |
 | 进程 | 每次通知启动一个 `powershell.exe`（约 1 秒，用完即退，最多 3 个并发） | 调用 Windows 通知 API |
 | 网络 | 无 | 插件本身不联网 |
 
@@ -132,13 +132,13 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 不加这两条会被静默过滤掉、一个事件都收不到。
 
 **2. 怎么变成通知** —— `lib/index.js` 把标题正文拼成 toast XML（自带 XML 转义），写进
-`$DSH_HOME/win-notify/spool/`，再起一个 `powershell.exe` 执行 `lib/notify.ps1`；后者只做
+`$DSH_HOME/dsh-TaskCompletedNotification-plugin/spool/`，再起一个 `powershell.exe` 执行 `lib/notify.ps1`；后者只做
 `LoadXml` + `CreateToastNotifier(<已注册 AUMID>).Show()`，并把结果写回同名 `.result.txt` 便于排查。
 
 **3. 署名与图标** —— 启动时把 `DeepSeek.Harness.Notify` 注册到
 `HKCU\Software\Classes\AppUserModelId\`，Windows 才会把通知显示成「DeepSeek Harness」。
 
-**4. 点击拉起窗口** —— 通知带 `activationType="protocol"` 与 `launch="dsh-win-notify://focus"`，
+**4. 点击拉起窗口** —— 通知带 `activationType="protocol"` 与 `launch="dsh-TaskCompletedNotification-plugin://focus"`，
 点击时由系统按协议启动一个无窗口的 `wscript` 启动器，再跑 `lib/focus-window.ps1`：
 定位标题以 `DeepSeek Harness` 结尾的主窗口、必要时从最小化恢复，并在 `SetForegroundWindow`
 被前台锁拒绝时依次改用 `AttachThreadInput`、按住 ALT 再抢。

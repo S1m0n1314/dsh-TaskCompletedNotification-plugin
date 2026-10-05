@@ -12,10 +12,10 @@ import { join } from 'node:path';
 import { ensureClickToFocus, ensureBrand, harnessIconPath, packageRoot } from '../lib/index.js';
 
 const args = new Set(process.argv.slice(2));
-const PROTOCOL = 'dsh-win-notify';
+const PROTOCOL = 'dsh-TaskCompletedNotification-plugin';
 const APP_ID = 'DeepSeek.Harness.Notify';
 const PS = 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe';
-const dataDir = join(process.env.DSH_HOME ?? '.', 'win-notify');
+const dataDir = join(process.env.DSH_HOME ?? '.', 'dsh-TaskCompletedNotification-plugin');
 const spool = join(dataDir, 'spool');
 const stagedLib = join(dataDir, 'lib');
 mkdirSync(spool, { recursive: true });
