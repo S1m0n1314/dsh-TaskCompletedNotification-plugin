@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/S1m0n1314/dsh-win-notify.git"
+    "url": "git+https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git"
   },
-  "homepage": "https://github.com/S1m0n1314/dsh-win-notify#readme",
+  "homepage": "https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin#readme",
   "bugs": {
-    "url": "https://github.com/S1m0n1314/dsh-win-notify/issues"
+    "url": "https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/issues"
   },
   "engines": {
     "node": ">=22.19.0"

@@ -94,7 +94,7 @@
 ### 从 GitHub 克隆
 
 ```powershell
-git clone https://github.com/S1m0n1314/dsh-win-notify.git D:\plugins\dsh-win-notify
+git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git D:\plugins\dsh-win-notify
 ```
 
 然后在 DSH 里：
