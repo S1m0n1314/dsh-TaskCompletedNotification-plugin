@@ -1,0 +1,59 @@
+{
+  "name": "dsh-win-notify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Windows toast notifications for DeepSeek Harness: a turn finished, or the model needs the user to confirm an operation.",
+  "license": "MIT",
+  "author": {
+    "name": "S1m0n1314"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S1m0n1314/dsh-win-notify.git"
+  },
+  "homepage": "https://github.com/S1m0n1314/dsh-win-notify#readme",
+  "bugs": {
+    "url": "https://github.com/S1m0n1314/dsh-win-notify/issues"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --check lib/index.js",
+    "test": "node tools/smoke.mjs",
+    "toast": "node tools/send-test-toast.mjs",
+    "pack": "node tools/pack.mjs"
+  },
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "windows",
+    "notification",
+    "toast"
+  ],
+  "dsh": {
+    "category": "extension",
+    "displayName": "Windows 通知提醒",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "meta": {
+    "title": "Windows 通知提醒",
+    "description": "任务完成、模型提问、模型申请权限时弹 Windows 通知。"
+  }
+}

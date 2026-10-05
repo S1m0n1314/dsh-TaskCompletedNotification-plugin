@@ -1,0 +1,22 @@
+# dsh-win-notify bundle patch.
+#
+# One insert over the profile tree. The row activates when this package is
+# installed as a profile bundle (plugin_manager action=install_bundle).
+#
+# The values below are the shipped defaults, restated so the intended behaviour
+# is visible without reading the source:
+#   - one notification per turn, chosen by nature (ask -> 任务操作待确认,
+#     plain completion -> 任务完成)
+#   - no short-turn filter and no "user is active" gate, so a completion is
+#     always reported
+- insert:
+    - id: win-notify
+      name: 'dsh-win-notify'
+      config:
+        enabled: true
+        notifyOnTurnEnd: true
+        notifyOnQuestion: true
+        notifyOnApproval: true
+        minTurnMs: 0
+        quietWhenActiveMs: 0
+        suppressTurnEndAfterAsk: true

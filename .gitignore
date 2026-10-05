@@ -1,0 +1,20 @@
+# Local build output: `node tools/pack.mjs` regenerates it.
+dist/
+*.zip
+
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+
+# Editors / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+
+# Local diagnostics the plugin writes from the data directory
+*.log
+log.ndjson
+focus.log
