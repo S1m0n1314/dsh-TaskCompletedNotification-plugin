@@ -146,10 +146,12 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 ## 自测
 
 ```powershell
-node tools/smoke.mjs                  # 38 项离线测试，不需要 Windows 也能跑
+node tools/smoke.mjs                  # 39 项离线测试，不需要 Windows 也能跑
 node tools/send-test-toast.mjs "正文"  # 走插件自己的链路真弹一条
 node tools/verify-click-focus.mjs      # 验证「点击拉起窗口」这条链
 node tools/pack.mjs                    # 重新打包发行版到 ../dist/
+node tools/release.mjs --dry-run       # 预览 GitHub Release 内容
+npm run release                        # 打包 + 发布 Release（需 repo 权限的 GitHub 凭据）
 ```
 
 ## 许可证

@@ -33,7 +33,8 @@
     "check": "node --check lib/index.js",
     "test": "node tools/smoke.mjs",
     "toast": "node tools/send-test-toast.mjs",
-    "pack": "node tools/pack.mjs"
+    "pack": "node tools/pack.mjs",
+    "release": "node tools/pack.mjs && node tools/release.mjs"
   },
   "keywords": [
     "deepseek",
