@@ -1,13 +1,13 @@
 ## 名称统一（0.1.0）
 
-所有可识别名称统一为 `dsh-TaskCompletedNotification-plugin`：
+所有可识别名称统一为 `dsh-taskcompletednotification-plugin`：
 
 | 项 | 值 |
 |---|---|
-| npm 包名 / loader 身份 / 插件行 id | `dsh-TaskCompletedNotification-plugin` |
-| 数据目录 | `%USERPROFILE%\.dsh\dsh-TaskCompletedNotification-plugin\` |
-| 点击协议 | `dsh-TaskCompletedNotification-plugin://focus` |
-| 注册表键 | `HKCU\Software\Classes\dsh-TaskCompletedNotification-plugin` |
+| npm 包名 / loader 身份 / 插件行 id | `dsh-taskcompletednotification-plugin` |
+| 数据目录 | `%USERPROFILE%\.dsh\dsh-taskcompletednotification-plugin\` |
+| 点击协议 | `dsh-taskcompletednotification-plugin://focus` |
+| 注册表键 | `HKCU\Software\Classes\dsh-taskcompletednotification-plugin` |
 | 通知署名 | `DeepSeek Harness`（AUMID `DeepSeek.Harness.Notify`） |
 
 > 如果你装过更早的 `dsh-win-notify` 版本，旧注册表键与旧数据目录不会被自动清理，可手动删除：
@@ -36,9 +36,9 @@ plugin_manager action=install_bundle target="<解压出来的目录>"
 
 ## 权限
 
-不需要管理员权限。会写入 `%USERPROFILE%\.dsh\dsh-TaskCompletedNotification-plugin\`（日志/暂存/点击处理器副本）、
+不需要管理员权限。会写入 `%USERPROFILE%\.dsh\dsh-taskcompletednotification-plugin\`（日志/暂存/点击处理器副本）、
 `HKCU\Software\Classes\AppUserModelId\DeepSeek.Harness.Notify`（署名与图标）、
-`HKCU\Software\Classes\dsh-TaskCompletedNotification-plugin`（点击拉起窗口的协议，卸载时自动删除）。
+`HKCU\Software\Classes\dsh-taskcompletednotification-plugin`（点击拉起窗口的协议，卸载时自动删除）。
 每次通知启动一个约 1 秒的 `powershell.exe`；插件本身不联网。
 
 ## 校验

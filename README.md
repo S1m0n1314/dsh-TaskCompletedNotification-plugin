@@ -1,4 +1,6 @@
-# dsh-TaskCompletedNotification-plugin
+# dsh-taskcompletednotification-plugin
+
+[![npm](https://img.shields.io/npm/v/dsh-taskcompletednotification-plugin?logo=npm)](https://www.npmjs.com/package/dsh-taskcompletednotification-plugin)
 
 [![发行包下载](https://img.shields.io/badge/%E5%8F%91%E8%A1%8C%E5%8C%85-%E4%B8%8B%E8%BD%BD-2ea44f?logo=github&logoColor=white)](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
@@ -9,6 +11,10 @@ DeepSeek Harness 的 Windows 桌面通知插件：**任务跑完**、**模型在
 
 它解决的问题很简单：DSH 在后台跑长任务时，你不可能一直盯着窗口。以前你只能反复切回来看进度；
 装上它以后，该回来的时候它会主动叫你。
+
+> **名字说明**：npm 包名必须全小写，所以是 `dsh-taskcompletednotification-plugin`；
+> GitHub 仓库名大小写不敏感，用的是 `dsh-TaskCompletedNotification-plugin`。
+> **安装时用的是 npm 那个小写包名**，两者是同一个插件。
 
 ## 功能
 
@@ -29,7 +35,7 @@ DeepSeek Harness 的 Windows 桌面通知插件：**任务跑完**、**模型在
 ### 从社区市场 / npm 安装（推荐）
 
 ```text
-dsh plugin --profile web add dsh-TaskCompletedNotification-plugin
+dsh plugin --profile web add dsh-taskcompletednotification-plugin
 ```
 
 > 包名与仓库名一致（`package.json` 的 `name` 就是它）。这条命令要求包已经发布到 npm 仓库 ——
@@ -38,18 +44,18 @@ dsh plugin --profile web add dsh-TaskCompletedNotification-plugin
 ### 从发行包安装
 
 1. 在 [Releases](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest)
-   下载 `dsh-TaskCompletedNotification-plugin-<version>.zip` 并解压
-   （例如 `D:\plugins\dsh-TaskCompletedNotification-plugin-0.1.0`）；
+   下载 `dsh-taskcompletednotification-plugin-<version>.zip` 并解压
+   （例如 `D:\plugins\dsh-taskcompletednotification-plugin-0.1.0`）；
 2. 让 DSH 安装这个目录：
 
 ```text
-plugin_manager action=install_bundle target="D:\plugins\dsh-TaskCompletedNotification-plugin-0.1.0"
+plugin_manager action=install_bundle target="D:\plugins\dsh-taskcompletednotification-plugin-0.1.0"
 ```
 
 ### 从源码克隆
 
 ```powershell
-git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git D:\plugins\dsh-TaskCompletedNotification-plugin
+git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git D:\plugins\dsh-taskcompletednotification-plugin
 ```
 
 然后同样用 `install_bundle` 指向该目录。
@@ -60,8 +66,8 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 ```yaml
 - insert:
-    - id: dsh-TaskCompletedNotification-plugin
-      name: 'dsh-TaskCompletedNotification-plugin'
+    - id: dsh-taskcompletednotification-plugin
+      name: 'dsh-taskcompletednotification-plugin'
 ```
 
 **以上任一方式装完，都要完全退出并重启 DSH** —— 插件模块只在启动时载入一次。
@@ -76,7 +82,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 ### 配置
 
-改 profile 的 `cordis.patch.yml` 里 `dsh-TaskCompletedNotification-plugin` 那一行的 `config`，改完完全重启 DSH。
+改 profile 的 `cordis.patch.yml` 里 `dsh-taskcompletednotification-plugin` 那一行的 `config`，改完完全重启 DSH。
 未填字段用默认值。
 
 | 字段 | 默认 | 含义 |
@@ -96,8 +102,8 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 配置示例（关闭点击激活 + 只在离开电脑时提醒完成）：
 
 ```yaml
-- id: dsh-TaskCompletedNotification-plugin
-  name: 'dsh-TaskCompletedNotification-plugin'
+- id: dsh-taskcompletednotification-plugin
+  name: 'dsh-taskcompletednotification-plugin'
   config:
     focusOnClick: false
     quietWhenActiveMs: 15000
@@ -114,9 +120,9 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 | 类别 | 具体内容 | 用途 |
 |---|---|---|
-| 用户目录写入 | `%USERPROFILE%\.dsh\dsh-TaskCompletedNotification-plugin\`（`log.ndjson`、`spool\`、`lib\`） | 诊断日志、通知暂存、点击处理器副本 |
+| 用户目录写入 | `%USERPROFILE%\.dsh\dsh-taskcompletednotification-plugin\`（`log.ndjson`、`spool\`、`lib\`） | 诊断日志、通知暂存、点击处理器副本 |
 | 用户级注册表（HKCU） | `HKCU\Software\Classes\AppUserModelId\DeepSeek.Harness.Notify` | 让通知署名显示为「DeepSeek Harness」+ 图标 |
-| 用户级注册表（HKCU） | `HKCU\Software\Classes\dsh-TaskCompletedNotification-plugin` | 注册 `dsh-TaskCompletedNotification-plugin://` 协议，实现「点击横幅拉起窗口」；**插件卸载时会自动删除** |
+| 用户级注册表（HKCU） | `HKCU\Software\Classes\dsh-taskcompletednotification-plugin` | 注册 `dsh-taskcompletednotification-plugin://` 协议，实现「点击横幅拉起窗口」；**插件卸载时会自动删除** |
 | 进程 | 每次通知启动一个 `powershell.exe`（约 1 秒，用完即退，最多 3 个并发） | 调用 Windows 通知 API |
 | 网络 | 无 | 插件本身不联网 |
 
@@ -132,13 +138,13 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 不加这两条会被静默过滤掉、一个事件都收不到。
 
 **2. 怎么变成通知** —— `lib/index.js` 把标题正文拼成 toast XML（自带 XML 转义），写进
-`$DSH_HOME/dsh-TaskCompletedNotification-plugin/spool/`，再起一个 `powershell.exe` 执行 `lib/notify.ps1`；后者只做
+`$DSH_HOME/dsh-taskcompletednotification-plugin/spool/`，再起一个 `powershell.exe` 执行 `lib/notify.ps1`；后者只做
 `LoadXml` + `CreateToastNotifier(<已注册 AUMID>).Show()`，并把结果写回同名 `.result.txt` 便于排查。
 
 **3. 署名与图标** —— 启动时把 `DeepSeek.Harness.Notify` 注册到
 `HKCU\Software\Classes\AppUserModelId\`，Windows 才会把通知显示成「DeepSeek Harness」。
 
-**4. 点击拉起窗口** —— 通知带 `activationType="protocol"` 与 `launch="dsh-TaskCompletedNotification-plugin://focus"`，
+**4. 点击拉起窗口** —— 通知带 `activationType="protocol"` 与 `launch="dsh-taskcompletednotification-plugin://focus"`，
 点击时由系统按协议启动一个无窗口的 `wscript` 启动器，再跑 `lib/focus-window.ps1`：
 定位标题以 `DeepSeek Harness` 结尾的主窗口、必要时从最小化恢复，并在 `SetForegroundWindow`
 被前台锁拒绝时依次改用 `AttachThreadInput`、按住 ALT 再抢。

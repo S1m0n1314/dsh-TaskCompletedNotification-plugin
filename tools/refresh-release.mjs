@@ -35,7 +35,7 @@ async function api(url, init = {}) {
 		headers: {
 			Authorization: `token ${token()}`,
 			Accept: 'application/vnd.github+json',
-			'User-Agent': 'dsh-TaskCompletedNotification-plugin-release',
+			'User-Agent': 'dsh-taskcompletednotification-plugin-release',
 			...(init.headers ?? {})
 		},
 		body: init.body

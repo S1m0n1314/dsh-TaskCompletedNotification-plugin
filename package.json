@@ -1,7 +1,6 @@
 {
-  "name": "dsh-TaskCompletedNotification-plugin",
-  "version": "0.1.0",
-  "private": true,
+  "name": "dsh-taskcompletednotification-plugin",
+  "version": "0.2.0",
   "type": "module",
   "description": "Windows toast notifications for DeepSeek Harness: a turn finished, or the model needs the user to confirm an operation.",
   "license": "MIT",

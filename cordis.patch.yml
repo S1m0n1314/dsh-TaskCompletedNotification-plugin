@@ -1,8 +1,8 @@
-# dsh-TaskCompletedNotification-plugin bundle patch.
+# dsh-taskcompletednotification-plugin bundle patch.
 #
 # One insert over the profile tree. The row activates when this package is
 # installed as a profile bundle (plugin_manager action=install_bundle or
-# `dsh plugin --profile web add dsh-TaskCompletedNotification-plugin`).
+# `dsh plugin --profile web add dsh-taskcompletednotification-plugin`).
 #
 # The values below are the shipped defaults, restated so the intended behaviour
 # is visible without reading the source:
@@ -11,8 +11,8 @@
 #   - no short-turn filter and no "user is active" gate, so a completion is
 #     always reported
 - insert:
-    - id: dsh-TaskCompletedNotification-plugin
-      name: 'dsh-TaskCompletedNotification-plugin'
+    - id: dsh-taskcompletednotification-plugin
+      name: 'dsh-taskcompletednotification-plugin'
       config:
         enabled: true
         notifyOnTurnEnd: true

@@ -16,7 +16,7 @@ const notifier = createNotifier(config, {
 
 notifier.notify({
 	title: `${config.title} · 任务已完成`,
-	body: `这是一条自测通知（正文里带中文和 emoji ✅）\n${custom === undefined ? '来自 dsh-TaskCompletedNotification-plugin 的 tools/send-test-toast.mjs' : custom}`
+	body: `这是一条自测通知（正文里带中文和 emoji ✅）\n${custom === undefined ? '来自 dsh-taskcompletednotification-plugin 的 tools/send-test-toast.mjs' : custom}`
 });
 console.log(`markup spool: ${notifier.payloadDir}`);
 

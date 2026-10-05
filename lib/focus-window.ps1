@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 
 # Diagnostics: append one line per invocation so a click can be confirmed even
 # when the handler is started with no console (wscript / hidden powershell).
-$logPath = Join-Path $env:USERPROFILE '.dsh\dsh-TaskCompletedNotification-plugin\focus.log'
+$logPath = Join-Path $env:USERPROFILE '.dsh\dsh-taskcompletednotification-plugin\focus.log'
 try {
   $dir = Split-Path -Parent $logPath
   if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
