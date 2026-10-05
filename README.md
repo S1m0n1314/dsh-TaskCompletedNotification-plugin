@@ -1,7 +1,18 @@
 # dsh-win-notify
 
+[![发行包下载](https://img.shields.io/badge/%E5%8F%91%E8%A1%8C%E5%8C%85-%E4%B8%8B%E8%BD%BD-2ea44f?logo=github&logoColor=white)](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![平台](https://img.shields.io/badge/platform-Windows-0078d4?logo=windows)](#已知限制实测)
+
+**下载**：[发行包（zip）](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest) ·
+[源码](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin) ·
+[问题反馈](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/issues)
+
+> 发行包已随 `v0.1.0` 发布；若该链接暂时没有附件，说明 Release 还没发，
+> 可以直接克隆源码后照「安装」一节操作。
+
 让 DeepSeek Harness 在该叫你的时候叫你：**任务完成**、**模型要你选一个**、**模型申请操作权限**时，
-弹一条 Windows 通知。
+弹一条 Windows 通知。点一下通知横幅，就能把 DSH 窗口拉到前台。
 
 ```
 ┌────────────────────────────────────────────┐
@@ -105,7 +116,8 @@ plugin_manager action=install_bundle target="D:\plugins\dsh-win-notify"
 
 ### 从发行包
 
-解压 `dsh-win-notify-<version>.zip` 后，让 DSH 安装该目录（换成你的实际路径）：
+在 [Releases](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest)
+下载 `dsh-win-notify-<version>.zip`，解压后让 DSH 安装该目录（换成你的实际路径）：
 
 ```
 plugin_manager action=install_bundle target="D:\plugins\dsh-win-notify-0.1.0"
