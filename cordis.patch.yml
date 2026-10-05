@@ -1,7 +1,8 @@
-# dsh-win-notify bundle patch.
+# dsh-TaskCompletedNotification-plugin bundle patch.
 #
 # One insert over the profile tree. The row activates when this package is
-# installed as a profile bundle (plugin_manager action=install_bundle).
+# installed as a profile bundle (plugin_manager action=install_bundle or
+# `dsh plugin --profile web add dsh-TaskCompletedNotification-plugin`).
 #
 # The values below are the shipped defaults, restated so the intended behaviour
 # is visible without reading the source:
@@ -11,7 +12,7 @@
 #     always reported
 - insert:
     - id: win-notify
-      name: 'dsh-win-notify'
+      name: 'dsh-TaskCompletedNotification-plugin'
       config:
         enabled: true
         notifyOnTurnEnd: true

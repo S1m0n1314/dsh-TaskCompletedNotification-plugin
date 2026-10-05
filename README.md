@@ -32,23 +32,24 @@ DeepSeek Harness 的 Windows 桌面通知插件：**任务跑完**、**模型在
 dsh plugin --profile web add dsh-TaskCompletedNotification-plugin
 ```
 
-> 该命令要求包已发布到 npm 仓库。本插件目前**尚未发布到 npm**，
-> 因此现在请先用下面两种方式之一安装；发布后我会把这一行的包名对好。
+> 包名与仓库名一致（`package.json` 的 `name` 就是它）。这条命令要求包已经发布到 npm 仓库 ——
+> 本插件目前**尚未发布**，所以现在请先用下面两种方式安装；一旦发布，上面这条命令即可直接使用。
 
 ### 从发行包安装
 
 1. 在 [Releases](https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin/releases/latest)
-   下载 `dsh-win-notify-<version>.zip` 并解压（例如 `D:\plugins\dsh-win-notify-0.1.0`）；
+   下载 `dsh-TaskCompletedNotification-plugin-<version>.zip` 并解压
+   （例如 `D:\plugins\dsh-TaskCompletedNotification-plugin-0.1.0`）；
 2. 让 DSH 安装这个目录：
 
 ```text
-plugin_manager action=install_bundle target="D:\plugins\dsh-win-notify-0.1.0"
+plugin_manager action=install_bundle target="D:\plugins\dsh-TaskCompletedNotification-plugin-0.1.0"
 ```
 
 ### 从源码克隆
 
 ```powershell
-git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git D:\plugins\dsh-win-notify
+git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git D:\plugins\dsh-TaskCompletedNotification-plugin
 ```
 
 然后同样用 `install_bundle` 指向该目录。
@@ -60,7 +61,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 ```yaml
 - insert:
     - id: win-notify
-      name: 'dsh-win-notify'
+      name: 'dsh-TaskCompletedNotification-plugin'
 ```
 
 **以上任一方式装完，都要完全退出并重启 DSH** —— 插件模块只在启动时载入一次。
@@ -96,7 +97,7 @@ git clone https://github.com/S1m0n1314/dsh-TaskCompletedNotification-plugin.git 
 
 ```yaml
 - id: win-notify
-  name: 'dsh-win-notify'
+  name: 'dsh-TaskCompletedNotification-plugin'
   config:
     focusOnClick: false
     quietWhenActiveMs: 15000

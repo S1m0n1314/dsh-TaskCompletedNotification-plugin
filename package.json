@@ -1,5 +1,5 @@
 {
-  "name": "dsh-win-notify",
+  "name": "dsh-TaskCompletedNotification-plugin",
   "version": "0.1.0",
   "private": true,
   "type": "module",

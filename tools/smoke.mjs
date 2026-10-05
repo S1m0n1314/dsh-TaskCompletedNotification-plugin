@@ -22,6 +22,7 @@ import {
 	harnessIconPath,
 	humanDuration,
 	isSubagentSession,
+	name,
 	normalizeConfig,
 	preview,
 	workspaceLabel
@@ -581,7 +582,20 @@ await test('the bundle patch inserts exactly one row for this package', () => {
 	const patch = readFileSync(new URL('../cordis.patch.yml', import.meta.url), 'utf8');
 	assert.match(patch, /insert:/);
 	assert.match(patch, /id: win-notify/);
-	assert.match(patch, /name: 'dsh-win-notify'/);
+	// The row's plugin name must match the package name, or the loader cannot
+	// resolve the module after a rename.
+	const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+	assert.match(patch, new RegExp(`name: '${manifest.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`));
+	assert.equal(manifest.name, name, 'package.json and the exported loader identity agree');
+});
+
+await test('the URL protocol is independent of the package name', () => {
+	// The scheme is a stable contract with the registry entry written at
+	// activation; renaming the package must not silently change it.
+	const launcher = readFileSync(new URL('../lib/focus-launcher.vbs', import.meta.url), 'utf8');
+	assert.match(launcher, /dsh-win-notify/);
+	const source = readFileSync(new URL('../lib/index.js', import.meta.url), 'utf8');
+	assert.match(source, /ACTIVATION_PROTOCOL = 'dsh-win-notify'/);
 });
 
 rmSync(scratch, { recursive: true, force: true });
